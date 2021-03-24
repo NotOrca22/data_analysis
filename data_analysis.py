@@ -1,3 +1,4 @@
+import argparse
 def extract_columns(input_filename_1, input_filename_2, output_filename):
     splitlines2 = []
     counter = 0
@@ -35,5 +36,9 @@ def extract_columns(input_filename_1, input_filename_2, output_filename):
 
 
 if __name__ == '__main__':
-    columns = extract_columns("/Users/hailongwang/git/chris/data_analysis/WiHe_germline_exome.strictFilter_PASS.avinput", "/Users/hailongwang/git/chris/data_analysis/WiHe_germline_exome.strictFilter.snp.hg19_multianno.txt", "/Users/hailongwang/git/chris/data_analysis/chris_result.txt")
-    print('done1')
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input_file", help="add the input file", action="store", dest="input_file")
+    parser.add_argument("--output_file", help="add the output file", action="store", dest="output_file")
+    parser.add_argument("--read_file", help="add the read file", action="store", dest="read_file")
+    args = parser.parse_args()
+    extract_columns(args.input_file, args.read_file, args.output_file)
