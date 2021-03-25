@@ -17,8 +17,8 @@ def extract_columns(input_filename_1, input_filename_2, output_filename):
                     print(entry[1])
                     fields = entry[1].split(',')
                     if len(fields) == 2:
-                        AD = fields[0]
-                        RD = fields[1]
+                        AD = fields[1]
+                        RD = fields[0]
                     else:
                         continue
                     DP = int(entry[2])
@@ -27,10 +27,10 @@ def extract_columns(input_filename_1, input_filename_2, output_filename):
                     FREQ = "{:.2f}".format(int(AD)/int(DP))
                     line2 = line2.replace('\n', '')
                     if counter > 0:
-                        output_file.write(line2 + '\t' + str(AD) + '\t' + str(RD) + '\t' + str(DP) + '\t' + str(FREQ) + '\n')
+                        output_file.write(line2 + '\t' + str(RD) + '\t' + str(AD) + '\t' + str(DP) + '\t' + str(FREQ) + '\n')
                     else:
                         output_file.write(
-                            line2 + '\t' + 'AD' + '\t' + 'RD' + '\t' + 'DP' + '\t' + 'FREQ' + '\n')
+                            line2 + '\t' + 'RD' + '\t' + 'AD' + '\t' + 'DP' + '\t' + 'FREQ' + '\n')
                     counter += 1
                 print(counter)
 
