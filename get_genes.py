@@ -1,6 +1,7 @@
 import argparse
 
 def find_gene(gene, input_file, output_file):
+    gene_list = gene.split(',')
     with open(input_file) as f1:
         with open(output_file, "w") as f2:
             count = 0
@@ -11,10 +12,22 @@ def find_gene(gene, input_file, output_file):
                         break
                     split_line = line.split('\t')
                     genes = split_line[8].split(';')
-                    if gene in genes:
-                        f2.write(line)
-                        print('ok')
-                    count += 1
+                    if type(gene_list) == list:
+                        for gene in gene_list:
+                            try:
+                                if gene.strip() == genes[0] or gene.strip == genes[1]:
+                                    f2.write(line)
+                                    print('ok')
+                            except IndexError:
+                                if gene.strip() == genes[0]:
+                                    f2.write(line)
+                                    print('ok')
+                            count += 1
+                    else:
+                        if gene in genes:
+                            f2.write(line)
+                            print('ok')
+                        count += 1
                 else:
                     line = f1.readline()
                     f2.write(line)
