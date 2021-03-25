@@ -1,9 +1,13 @@
 import argparse
+from datetime import datetime
 
 def find_gene(gene, input_file, output_file):
+    output_file = output_file[:-4]
+    print(output_file)
     gene_list = gene.split(',')
+    current_time = datetime.now().strftime("%Y_%m_%d-%I:%M:%S_%p")
     with open(input_file) as f1:
-        with open(output_file, "w") as f2:
+        with open(output_file + '_' + current_time + '.txt', "w") as f2:
             count = 0
             while True:
                 if count > 0:

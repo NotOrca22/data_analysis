@@ -1,20 +1,21 @@
 import argparse
+from datetime import datetime
 def extract_columns(input_filename_1, input_filename_2, output_filename):
     splitlines2 = []
     counter = 0
+    output_filename = output_filename[:-4]
+    current_time = datetime.now().strftime("%Y_%m_%d-%I:%M:%S_%p")
 
     with open(input_filename_1) as f1:
         with open(input_filename_2) as f2:
-            with open(output_filename, "w") as output_file:
+            with open(output_filename + '_' + current_time + '.txt', "w") as output_file:
                 while True:
                     line = f1.readline()
                     if not line:
                         break
                     columns = line.split('\t')[17:]
-                    print(columns)
                     line2 = f2.readline()
                     entry = columns[0].split(':')
-                    print(entry[1])
                     fields = entry[1].split(',')
                     if len(fields) == 2:
                         AD = fields[1]
