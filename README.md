@@ -1,2 +1,8 @@
 # data_analysis
 Program to analyze data files.
+
+For data_analysis, do --input_file "[input file]" --read_file "[original file]" --output_file "[file to enter result into]"
+
+For get_genes, do --input_file "[input file]" --gene_requested [the gene to search for] --output_file "[file to enter result into]"
+
+Make sure to use quotation marks when I use them here and to use absolute path for the files. Run these commands in your command line/terminal.
