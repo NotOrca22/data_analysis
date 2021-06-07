@@ -15,17 +15,21 @@ def replaceGenes(input_file, gene_file, result_file):
                 splitLine = line.split("\t")
                 for line in text:
                     if len(splitLine) > 1:
+                        print(splitLine)
+                        line = line[0].split(",")
                         if len(line) > 2:
+                            print(line)
+                            print(splitLine)
                             if line[2] == splitLine[0]:
                                 line[3] = splitLine[1]
                         else:
-                            break
+                            pass
                     else:
-                        break
+                        pass
 
-    with open(result_file, "w") as f:
-        for line in text:
-            f.write("\t".join(line))
+        with open(result_file, "w") as f:
+            for line in text:
+                f.write("\t".join(line))
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_file", help="add the input file", action="store", dest="input_file")
