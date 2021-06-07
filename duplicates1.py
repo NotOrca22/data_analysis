@@ -1,5 +1,5 @@
 import argparse
-def removeDuplicates(input_file):
+def removeDuplicates(input_file, result_file):
     with open(input_file) as f:
         line = f.readline()
         print(line)
@@ -51,8 +51,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_file", help="add the input file", action="store", dest="input_file")
     # parser.add_argument("--output_file", help="add the output file", action="store", dest="output_file")
-    parser.add_argument("--gene_file", help="add the gene file", action="store", dest="gene_file")
+    # parser.add_argument("--gene_file", help="add the gene file", action="store", dest="gene_file")
     parser.add_argument("--result_file", help="add the result file", action="store", dest="result_file")
     args = parser.parse_args()
-    removeDuplicates(args.input_file)
-    replaceGenes(args.input_file, args.gene_file, args.result_file)
+    removeDuplicates(args.input_file, args.result_file)
