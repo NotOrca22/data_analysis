@@ -16,36 +16,10 @@ def removeDuplicates(input_file, result_file):
                     indexes.append(count)
                 count += 1
         print(indexes)
-        # with open(output_file, "w") as f:
-        #     f.write("\n".join(namesFound))
+        with open(result_file, "w") as f:
+            f.write("\n".join(namesFound))
 
-def replaceGenes(input_file, gene_file, result_file):
-    text = []
-    with open(input_file) as file:
-        line = "orca"
-        while line:
-            line = file.readline()
-            if line:
-                text.append(line.split(" "))
-    with open(gene_file) as f:
-        line = "orca"  # to make sure line == True
-        while line:
-            line = f.readline()
-            if line:
-                splitLine = line.split("\t")
-                for line in text:
-                    if len(splitLine) > 1:
-                        if len(line) > 2:
-                            if line[2] == splitLine[0]:
-                                line[3] = splitLine[1]
-                        else:
-                            break
-                    else:
-                        break
 
-    with open(result_file, "w") as f:
-        for line in text:
-            f.write("\t".join(line))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
