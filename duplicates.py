@@ -31,7 +31,7 @@ def removeDuplicates(input_file, gene_file, result_file):
         res = res.split("\\n")
         res[0] = res[0][2:]
         print(res[0])
-        with open(gene_file, "w") as f:
+        with open("genes.txt", "w") as f:
             f.write("\n".join(res[:len(namesFound)]))
 def replaceGenes(input_file, gene_file, result_file):
     text = []
@@ -75,5 +75,5 @@ if __name__ == '__main__':
     parser.add_argument("--gene_file", help="add the gene file", action="store", dest="gene_file")
     parser.add_argument("--result_file", help="add the result file", action="store", dest="result_file")
     args = parser.parse_args()
-    removeDuplicates(args.input_file, args.gene_file, args.result_file)
-    replaceGenes(args.input_file, args.gene_file, args.result_file)
+    removeDuplicates(args.input_file, "genes.txt", args.result_file)
+    replaceGenes(args.input_file, "genes.txt", args.result_file)
