@@ -3,6 +3,7 @@ import mechanize
 
 import requests
 import argparse
+genes= {}
 def removeDuplicates(input_file, gene_file, result_file):
     with open(input_file) as f:
         line = f.readline()
@@ -28,9 +29,9 @@ def removeDuplicates(input_file, gene_file, result_file):
         print(br.form)
         req = br.submit()
         res = str(req.read())
+        # res = res.decode()
         res = res.split("\\n")
-        res[0] = res[0][2:]
-        print(res[0])
+        print(res)
         with open("genes.txt", "w") as f:
             f.write("\n".join(res[:len(namesFound)]))
 def replaceGenes(input_file, gene_file, result_file):
@@ -49,11 +50,8 @@ def replaceGenes(input_file, gene_file, result_file):
                 splitLine = line.split("\t")
                 for line in text:
                     if len(splitLine) > 1:
-                        print(splitLine)
                         line = line[0].split(",")
                         if len(line) > 2:
-                            print(line)
-                            print(splitLine)
                             if line[2] == splitLine[0]:
                                 line[3] = splitLine[1]
                         else:
