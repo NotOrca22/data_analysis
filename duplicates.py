@@ -8,18 +8,15 @@ def removeDuplicates(input_file, gene_file, result_file):
     with open(input_file) as f:
         line = f.readline()
         # print(line)
-        namesFound = []
-        indexes = []
-        count = 1
+        namesFound = set()
+
         while line:
             line = f.readline()
             arr = line.split(",")
             # print(arr)
             if len(arr) > 1:
-                if arr[2] not in namesFound:
-                    namesFound.append(arr[2])
-                    indexes.append(count)
-                count += 1
+                namesFound.add(arr[2].strip('"'))
+
         # print(indexes)
         br = mechanize.Browser()
         br.open("https://www.biotools.fr/human/refseq_symbol_converter")
@@ -33,8 +30,10 @@ def removeDuplicates(input_file, gene_file, result_file):
         res = res.split("\\n")
         print(res)
         with open("genes.txt", "w") as f:
-            f.write("\n".join(res[:len(namesFound)]))
-def replaceGenes(input_file, gene_file, result_file):
+            for x in res[:len(namesFound)]:
+                x = x.split("\t")
+                genes[x[0]] = x[1]
+def replaceGenes(input_file, genes, result_file):
     text = []
     with open(input_file) as file:
         line = "orca"
@@ -42,22 +41,17 @@ def replaceGenes(input_file, gene_file, result_file):
             line = file.readline()
             if line:
                 text.append(line.split(" "))
-    with open(gene_file) as f:
-        line = "orca"  # to make sure line == True
-        while line:
-            line = f.readline()
-            if line:
-                splitLine = line.split("\t")
-                for line in text:
-                    if len(splitLine) > 1:
-                        line = line[0].split(",")
-                        if len(line) > 2:
-                            if line[2] == splitLine[0]:
-                                line[3] = splitLine[1]
-                        else:
-                            pass
+        splitLine = line.split("\t")
+        for line in text:
+            if len(splitLine) > 1:
+                line = line[0].split(",")
+                if len(line) > 2:
+                    if line[2] == splitLine[0]:
+                        line[3] = splitLine[1]
                     else:
                         pass
+                else:
+                    pass
 
         with open(result_file, "w") as f:
             for line in text:
@@ -74,4 +68,4 @@ if __name__ == '__main__':
     parser.add_argument("--result_file", help="add the result file", action="store", dest="result_file")
     args = parser.parse_args()
     removeDuplicates(args.input_file, "genes.txt", args.result_file)
-    replaceGenes(args.input_file, "genes.txt", args.result_file)
+    replaceGenes(args.input_file, genes, args.result_file)
